@@ -15,3 +15,25 @@
 .evidence-route .item-step{max-width:100%;overflow-wrap:anywhere}
 .evidence-route .hint{margin:0}
 .evidence-route .reference-inline{margin-top:auto;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+
+/* v1.5: ability/augment evidence matrix */
+.ability-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+.ability-slot-card{border:1px solid rgba(120,157,193,.26);border-radius:15px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0;background:rgba(8,17,35,.34)}
+.ability-slot-head{display:flex;align-items:center;gap:11px}
+.ability-slot-head strong{display:block;font-weight:750}
+.ability-slot-head small{display:block;color:var(--muted,#9daabe);font-size:11px;margin-top:2px}
+.ability-slot-letter{display:grid;place-items:center;background:rgba(57,184,210,.18);border:1px solid rgba(57,184,210,.3);font-weight:850;font-size:20px;color:#79dff2;width:43px;height:43px;border-radius:12px;flex:0 0 auto}
+.ability-description{margin:0;font-size:12px;line-height:1.6;color:var(--muted,#b9c5d9);max-height:6.4em;overflow:hidden}
+.ability-fixed{margin:0;padding:10px 12px;background:rgba(70,92,131,.17);border-radius:10px;line-height:1.6;font-size:12px}
+.ability-fixed small{color:var(--muted,#acb7cd)}
+.ability-evidence-example{border-left:3px solid #6dd6b8;background:rgba(60,170,138,.10);padding:9px 12px;border-radius:4px 10px 10px 4px}
+.ability-evidence-example strong{display:block;color:#97ead4;font-size:12px}
+.ability-evidence-example p{font-size:12px;margin:5px 0 6px;line-height:1.5}
+.ability-evidence-example a,.ability-caution a{font-size:11px;color:#91dce5}
+.ability-caution{margin:0;font-size:12px;color:#efd3a1;border-left:3px solid #d5a863;padding:8px 10px;background:rgba(194,150,69,.09)}
+.ability-roster-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(152px,1fr));gap:10px}
+.ability-roster-btn{display:flex;flex-direction:column;gap:5px;align-items:flex-start;justify-content:center;text-align:left;background:rgba(30,48,73,.40);border:1px solid rgba(139,164,197,.22);border-radius:12px;padding:13px;min-height:67px;color:inherit;cursor:pointer;transition:border-color .15s}
+.ability-roster-btn:hover,.ability-roster-btn:focus-visible{border-color:#66d1e6}
+.ability-roster-btn strong{font-size:13px}
+.ability-roster-btn small{font-size:11px;color:var(--muted,#abb5ca)}
+@media(max-width:680px){.ability-grid{grid-template-columns:1fr}.ability-roster-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ability-slot-card{padding:13px}}
