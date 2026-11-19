@@ -114,7 +114,7 @@ window.HM_ABILITY_EVIDENCE=Object.freeze({
       "zh": "自适应护卫",
       "rarity": "白银",
       "rule": "技能击中敌方英雄时，按目标伤害类型获得持续一段时间的护甲或魔抗。",
-      "trigger": "由游戏内指定技能触发；具体技能可选资格未公开。",
+      "trigger": "由游戏内指定技能触发；具体技能可选资格未公开。 当前版本的实际掉落资格以客户端为准。",
       "patch": "26.21",
       "source": "https://hexaram.lol/en/champions/lux/"
     },
@@ -123,7 +123,7 @@ window.HM_ABILITY_EVIDENCE=Object.freeze({
       "zh": "强效护盾",
       "rarity": "白银",
       "rule": "来自被选定技能的护盾会随目标已损失生命值提高效果。",
-      "trigger": "要求技能具备有效护盾交互；未获取逐英雄发放表。",
+      "trigger": "要求技能具备有效护盾交互；未获取逐英雄发放表。 当前版本的实际掉落资格以客户端为准。",
       "patch": "26.21",
       "source": "https://hexaram.lol/en/champions/lux/"
     },
@@ -132,7 +132,7 @@ window.HM_ABILITY_EVIDENCE=Object.freeze({
       "zh": "邦！",
       "rarity": "黄金",
       "rule": "由选定技能强化的普攻或技能对目标与附近敌人造成额外伤害。",
-      "trigger": "需要符合技能增强普攻机制，不能泛化到所有 Q/W/E/R。",
+      "trigger": "需要符合技能增强普攻机制，不能泛化到所有 Q/W/E/R。 当前版本的实际掉落资格以客户端为准。",
       "patch": "26.21",
       "source": "https://hexaram.lol/en/champions/lux/"
     },
@@ -141,7 +141,7 @@ window.HM_ABILITY_EVIDENCE=Object.freeze({
       "zh": "连锁反应",
       "rarity": "黄金",
       "rule": "被选定技能击退的敌人若撞到其他英雄或地形，会产生额外控制及伤害。",
-      "trigger": "依赖击退和碰撞，不是所有控制技能都满足。",
+      "trigger": "依赖击退和碰撞，不是所有控制技能都满足。 当前版本的实际掉落资格以客户端为准。",
       "patch": "26.21",
       "source": "https://hexaram.lol/en/champions/lux/"
     },
@@ -150,7 +150,7 @@ window.HM_ABILITY_EVIDENCE=Object.freeze({
       "zh": "深红钴蓝",
       "rarity": "黄金",
       "rule": "被选定技能伤害标记的目标，在后续普攻触发标记时造成额外伤害并减少被选技能冷却。",
-      "trigger": "由游戏内选定技能，实际资格与伤害数值以客户端为准。",
+      "trigger": "由游戏内选定技能，实际资格与伤害数值以客户端为准。 当前版本的实际掉落资格以客户端为准。",
       "patch": "26.21",
       "source": "https://hexaram.lol/en/champions/lux/"
     },
@@ -159,7 +159,7 @@ window.HM_ABILITY_EVIDENCE=Object.freeze({
       "zh": "双重打击",
       "rarity": "白银",
       "rule": "被选定的技能额外应用一次攻击特效。",
-      "trigger": "只能对可触发攻击特效的技能按机制使用，不能一律套用。",
+      "trigger": "只能对可触发攻击特效的技能按机制使用，不能一律套用。 当前版本的实际掉落资格以客户端为准。",
       "patch": "26.21",
       "source": "https://hexaram.lol/en/champions/lux/"
     }
