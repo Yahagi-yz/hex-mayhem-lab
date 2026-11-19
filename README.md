@@ -1,6 +1,6 @@
 # 海斗战术室 · Hex Mayhem Lab
 
-**v1.4 · 首批有出处的英雄分支 · 2026-11-19**
+**v1.5 · 技能强化适配证据模块 · 2026-11-20**
 
 玩家个人使用的《英雄联盟》海克斯大乱斗资料与实测管理站，非 Riot 官方项目。现有 173 位英雄、原有 25 位英雄的 51 条**历史策略草案**（均未逐条验证来源）、12 种 Headliner 开局演出、3 张地图以及有明确版本来源的强化资料。
 
@@ -46,3 +46,14 @@ node scripts/sync-reference.cjs
 - 新增 `build-evidence.js`，不覆盖 51 条原有历史草案、不覆盖个人收藏、自定义方案或对局记录。
 - 新增「有出装证据 / 待核对出装」筛选；可以复制来源三件套到个人可编辑模板，但不会自动给模板加未验证的强化。
 - 参考资料：[剑圣](https://arammayhem.com/build/masteryi/)、[龙龟](https://arammayhem.com/build/rammus/)、[赵信](https://arammayhem.com/build/xinzhao/)、[永恩](https://arammayhem.com/build/yone/)，访问时公开页面的 26.22 资料快照。较旧版本的观察胜率不能视为当前结果。
+
+## v1.5 英雄技能强化适配（严格有限证据）
+
+- 新增「技能强化适配」独立页面：可以搜索全 173 位英雄，点击任意英雄查询 Riot Data Dragon `16.23.1` 的 Q/W/E/R 技能名称及基础说明（在线按需请求，失败时显示未获取，不会自己编造技能）。
+- 新增 `ability-evidence.js`：目前只把 Riot 26.12 明确指名的 **4 条英雄×技能×强化实例**标为“官方举例”：拉克丝 Q＋Multishot、机器人 Q＋Multishot、盖伦 E＋Quickstep、凯南 R＋Quickstep。
+- 通用固定槽位类「Bread and Butter / Bread and Jam / Bread and Cheese」作为 Q/W/E 的**机制参考**独立显示；这不等于该英雄当前一定抽得到，也不等于该技能一定能从技能急速受益。永恩 Q/W 的冷却机制注意事项注明 HexARAM 26.21 来源。
+- **完整资格白名单尚未取得**。Riot 26.13 曾修复错误分配及后期技能强化出现率；对其余 169 位英雄不假装已完成资格核实。明确来源的实例并不能推断其他英雄。
+- 已验证装备三件套（v1.4）与技能强化资料（v1.5）分层管理，**不会**自动拼接成未经统计证明的“最佳联动胜率”。
+- Riot 官方确认海克斯大乱斗禁用传统符文设置，旧资料字段只作为历史备注，不能作为开局符文配置建议。
+
+来源：Riot [26.12 Patch Notes](https://www.leagueoflegends.com/en-us/news/game-updates/league-of-legends-patch-26-12-notes/)、[26.13 Patch Notes](https://www.leagueoflegends.com/en-us/news/game-updates/league-of-legends-patch-26-13-notes/)、[开发文章](https://www.leagueoflegends.com/en-gb/news/dev/dev-augmentmaxxing-aram-mayhem/)、[模式规则](https://support.riotgames.com/en-us/league-of-legends/events/league-of-legends-aram-mayhem-game-mode)、[HexARAM 26.21](https://hexaram.lol/en/champions/)。
