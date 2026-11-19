@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="海斗战术室：私人海克斯大乱斗英雄出装、强化符文分支、对局分析与战绩笔记。">
+  <title>海斗战术室 · Hex Mayhem Lab</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <div id="app" class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a href="#home" class="brand" id="logo-home" aria-label="海斗战术室首页">
+        <span class="brand-gem">✦</span>
+        <span><strong>海斗<span class="brand-highlight">战术室</span></strong><small>HEX MAYHEM / PERSONAL LAB</small></span>
+      </a>
+      <div class="sidebar-label">WORKSPACE <span>01</span></div>
+      <nav class="side-nav" id="side-nav" aria-label="主要导航">
+        <button class="nav-btn active" data-page="home"><span class="nav-icon">◈</span> 总览 <span class="nav-kbd">G</span></button>
+        <button class="nav-btn" data-page="heroes"><span class="nav-icon">♜</span> 英雄配装 <span class="nav-count" id="navHeroCount">0</span></button>
+        <button class="nav-btn" data-page="decision"><span class="nav-icon">✳</span> 本局决策 <span class="nav-dot"></span></button>
+        <button class="nav-btn" data-page="augments"><span class="nav-icon">✧</span> 强化图鉴</button>
+        <button class="nav-btn" data-page="records"><span class="nav-icon">▤</span> 对局记录</button>
+      </nav>
+      <div class="sidebar-label">MANAGE <span>02</span></div>
+      <nav class="side-nav">
+        <button class="nav-btn" data-page="data"><span class="nav-icon">⛁</span> 数据管理</button>
+      </nav>
+      <div class="sidebar-spacer"></div>
+      <div class="sidebar-info">
+        <div class="pulse-label"><span class="pulse-dot"></span> 个人策略库</div>
+        <strong>PATCH 26.23</strong>
+        <p>初始方案部分基于 26.22 数据与 26.23 更新，带“待验证”标记的流派请实战复核。</p>
+        <a href="https://www.leagueoflegends.com/en-au/news/game-updates/league-of-legends-patch-26-23-notes/" target="_blank" rel="noopener">查看官方更新 ↗</a>
+      </div>
+      <div class="sidebar-bottom"><span class="mini-avatar">TM</span><div><strong>我的战术空间</strong><small>仅保存在当前浏览器</small></div><span class="small-spark">✦</span></div>
+    </aside>
+
+    <div class="main-column">
+      <header class="topbar">
+        <button id="mobile-menu" class="icon-btn mobile-menu" title="菜单" aria-label="打开导航">☰</button>
+        <div class="breadcrumb"><span>海斗战术室</span><span class="crumb-angle">/</span><strong id="breadcrumbCurrent">总览</strong></div>
+        <div class="top-actions">
+          <div class="patch-chip"><span class="patch-live"></span> PATCH 26.23 <span class="patch-sub">· 2026.11.19</span></div>
+          <button class="top-search" id="open-search" title="搜索英雄 / Ctrl+K"><span>⌕</span><span>搜索英雄、流派、强化</span><kbd>⌘ K</kbd></button>
+          <button class="icon-btn" id="top-export" title="备份数据">⇩</button>
+          <button class="primary-btn small" id="new-plan-top">＋ 新建方案</button>
+        </div>
+      </header>
+      <main id="main-content" class="content" tabindex="-1"></main>
+      <footer class="footer"><span>HEX MAYHEM LAB © 2026 · 私人战术资料库</span><span>非 Riot Games 官方产品 · 不自动获取实时胜率</span></footer>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="modal-backdrop" role="presentation">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-head"><div><span class="eyebrow">CUSTOM STRATEGY</span><h2 id="modal-title">添加流派</h2></div><button class="close-btn" id="close-modal" aria-label="关闭">×</button></div>
+      <form id="route-form">
+        <input type="hidden" name="routeKey" value="">
+        <div class="form-grid">
+          <label>所属英雄<select name="heroId" id="formHeroId" required></select></label>
+          <label>流派名称<input name="name" required maxlength="45" placeholder="例如：秘术冲拳 · 高频Q"></label>
+          <label>玩法类型<select name="style"><option>战士</option><option>半肉</option><option>普攻特效</option><option>暴击</option><option>法术</option><option>持续法伤</option><option>爆发</option><option>技能循环</option><option>纯坦</option><option>辅助</option><option>特化</option><option>混合</option><option>穿甲</option><option>法坦</option></select></label>
+          <label>方案来源<select name="evidence"><option value="我的实测">我的实测</option><option value="个人策略草案">个人策略草案</option><option value="参考公开数据">参考公开数据</option></select></label>
+        </div>
+        <label>适用条件 / 关键提醒<input name="summary" maxlength="200" placeholder="例如：对手偏脆、抽到秘术冲拳以后"></label>
+        <label>核心强化（逗号分隔）<textarea name="priority" rows="2" placeholder="秘术冲拳,循环往复,虚幻武器"></textarea></label>
+        <label>备选强化（逗号分隔）<textarea name="backup" rows="2" placeholder="屹立不倒,歌利亚巨人"></textarea></label>
+        <label>出装顺序（逗号分隔，鞋子另写）<textarea name="items" rows="2" placeholder="破败王者之刃,鬼索的狂暴之刃,..."></textarea></label>
+        <label>鞋子 / 灵活替换<input name="flex" placeholder="水银之靴 / 铁板靴；必要时出重伤"></label>
+        <label>思路与条件说明<textarea name="logic" rows="3" placeholder="为什么这样选？哪个关键强化能改变出装？"></textarea></label>
+        <label>打法标签（逗号分隔）<input name="tags" placeholder="破坦,收割,成型难"></label>
+        <label>传统符文备注（可选）<input name="runes" placeholder="该模式主要是局内强化，按实际选人界面设置"></label>
+        <div class="form-note">只写入当前浏览器本地存储。推荐定期使用「数据管理 → 导出 JSON」备份。</div>
+        <div class="modal-actions"><button type="button" id="cancel-modal" class="outline-btn">取消</button><button type="submit" class="primary-btn">保存流派方案 ↗</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="search-overlay hidden" id="search-overlay">
+    <div class="search-dialog" role="dialog" aria-modal="true" aria-label="全站搜索"><div class="search-input-wrap">⌕ <input id="global-search-input" autocomplete="off" placeholder="输入英雄、强化或流派名称..."><button id="close-search" aria-label="关闭搜索">Esc</button></div><div id="global-search-results" class="search-results"></div><div class="search-help">提示：可以搜索「剑圣」「亮剑」「秘术冲拳」「龙龟」</div></div>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <input type="file" accept="application/json,.json" id="import-file" hidden>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
