@@ -28,3 +28,14 @@ for (const file of ['index.html', 'app.js', 'data.js', 'roster.js', 'styles.css'
 const index = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 assert(index.includes('<script src="data.js"></script>') && index.includes('<script src="roster.js"></script>') && index.includes('<script src="app.js"></script>'), 'Missing JS entrypoints');
 console.log(`PASS: ${data.heroes.length} heroes, ${routes.length} routes, all deployment assets present.`);
+
+// Patch 26.23 opening rules and 173-champion roster must be complete and sourced.
+vm.runInNewContext(fs.readFileSync(path.join(root, 'reference-data.js'), 'utf8'), context, {filename:'reference-data.js'});
+assert.equal(context.window.HM_REFERENCE.headliners.length,12,'Expected 12 independently sourced headliners');
+assert.equal(context.window.HM_REFERENCE.patch23Augments.length,4,'Expected 4 new augments in 26.23');
+const manifest=fs.readFileSync(path.join(root,'roster.js'),'utf8');
+assert(manifest.includes('Yone|永恩|战士')&&manifest.includes('Locke|洛克|刺客'),'Missing complete roster examples');
+assert(index.includes('headliners')&&index.includes('reference-data.js')&&index.includes('verified-data.js'),'Missing source-backed views');
+const app=fs.readFileSync(path.join(root,'app.js'),'utf8');
+assert(app.includes('function sourcedCombinationsFor')&&app.includes('function headlinersPage'),'Missing sourced-combo and headliner UI');
+console.log('PASS: 12 headliners, 4 official 26.23 augments, 173-roster support, explicit evidence UI.');
