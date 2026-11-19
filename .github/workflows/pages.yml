@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: "17 1 * * *" # Daily refresh, UTC; source metadata controls patch reporting
 
 permissions:
   contents: read
@@ -23,7 +25,11 @@ jobs:
       - name: Validate JavaScript syntax
         run: |
           node --check data.js
+          node --check roster.js
+          node --check reference-data.js
+          node --check verified-data.js
           node --check app.js
+          node --check scripts/sync-reference.cjs
       - name: Validate initial strategy catalog
         run: node tests/smoke.cjs
 
@@ -38,10 +44,12 @@ jobs:
         uses: actions/checkout@v4
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
+      - name: Build attributed public-data snapshot
+        run: node scripts/sync-reference.cjs
       - name: Package static files
         run: |
           mkdir -p _site
-          cp index.html app.js data.js roster.js styles.css favicon.svg .nojekyll _site/
+          cp index.html app.js data.js roster.js reference-data.js verified-data.js styles.css favicon.svg .nojekyll _site/
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
