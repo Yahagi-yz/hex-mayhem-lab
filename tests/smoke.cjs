@@ -39,3 +39,20 @@ assert(index.includes('headliners')&&index.includes('reference-data.js')&&index.
 const app=fs.readFileSync(path.join(root,'app.js'),'utf8');
 assert(app.includes('function sourcedCombinationsFor')&&app.includes('function headlinersPage'),'Missing sourced-combo and headliner UI');
 console.log('PASS: 12 headliners, 4 official 26.23 augments, 173-roster support, explicit evidence UI.');
+vm.runInNewContext(fs.readFileSync(path.join(root,'build-evidence.js'),'utf8'),context,{filename:'build-evidence.js'});
+const e=context.window.HM_BUILD_EVIDENCE;
+assert(e&&e.heroes,'Missing build evidence module');
+assert.equal(Object.keys(e.heroes).length,4,'Four pilot champions required');
+let n=0;for(const [id,h] of Object.entries(e.heroes)){
+ assert(data.heroes.some(hero=>hero.id===id),'Unknown champion in evidence: '+id);
+ assert(h.source.startsWith('https://'),'Source URL required');
+ assert(h.sourcePatch==='26.22','Evidence patch label must match source snapshot');
+ assert(h.statsDate&&h.augments&&Array.isArray(h.paths),'Missing evidence metadata');
+ for(const p of h.paths){n++;assert(p.items.length===3,'Only observed three-item paths are allowed');
+ assert(p.pickRate>0&&p.winRate>=0&&p.winRate<=100,'Out of range source stats');
+ assert(p.id&&p.title,'Missing build identifier');}
+}
+assert.equal(n,11,'Expected 11 observed source paths');
+assert(index.includes('build-evidence.js'),'Missing evidence loader');
+assert(app.includes('renderBuildEvidenceHero')&&app.includes('evidence-copy'),'Missing evidence UI');
+console.log('PASS: 4 sourced champions, 11 observed three-item paths; independent augments separated.');
