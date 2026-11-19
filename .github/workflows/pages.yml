@@ -28,6 +28,7 @@ jobs:
           node --check roster.js
           node --check reference-data.js
           node --check verified-data.js
+          node --check build-evidence.js
           node --check app.js
           node --check scripts/sync-reference.cjs
       - name: Validate initial strategy catalog
@@ -49,7 +50,7 @@ jobs:
       - name: Package static files
         run: |
           mkdir -p _site
-          cp index.html app.js data.js roster.js reference-data.js verified-data.js styles.css favicon.svg .nojekyll _site/
+          cp index.html app.js data.js roster.js reference-data.js verified-data.js build-evidence.js styles.css favicon.svg .nojekyll _site/
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
