@@ -74,6 +74,12 @@ const officialKeys=new Set(ability.examples.map(x=>x.heroId+':'+x.slot+':'+x.aug
 for(const key of ['Lux:Q:Multishot','Blitzcrank:Q:Multishot','Garen:E:Quickstep','Kennen:R:Quickstep'])assert(officialKeys.has(key),'Missing Riot evidence: '+key);
 assert.deepEqual(Array.from(ability.fixedSlots.map(x=>x.slot)),['Q','W','E']);
 assert.equal(ability.cautions.filter(x=>x.heroId==='Yone').length,2,'Yone skill-haste caveats missing');
+assert.equal(ability.dynamicAugments.length,6,'Expected six source-backed selected-skill augment mechanics');
+for(const x of ability.dynamicAugments){
+ assert(x.source.startsWith('https://hexaram.lol/'),'Selected-spell reference requires credited source');
+ assert(x.trigger.length>30,'Selected-spell augments must state eligibility limits');
+}
+
 assert(index.includes('<script src="ability-evidence.js"></script>'),'Missing ability evidence entrypoint');
 assert(index.indexOf('ability-evidence.js')<index.indexOf('<script src="app.js">'),'Ability evidence must load before app');
 assert(index.includes('data-page="abilities"'),'Ability page navigation missing');
