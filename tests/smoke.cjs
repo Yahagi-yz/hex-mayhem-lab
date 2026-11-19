@@ -56,3 +56,28 @@ assert.equal(n,11,'Expected 11 observed source paths');
 assert(index.includes('build-evidence.js'),'Missing evidence loader');
 assert(app.includes('renderBuildEvidenceHero')&&app.includes('evidence-copy'),'Missing evidence UI');
 console.log('PASS: 4 sourced champions, 11 observed three-item paths; independent augments separated.');
+
+/* Ability Augment integrity: official examples only, no inferred 173x4 whitelist. */
+const skillSource=fs.readFileSync(path.join(root,'ability-evidence.js'),'utf8');
+vm.runInNewContext(skillSource,context,{filename:'ability-evidence.js'});
+const ability=context.window.HM_ABILITY_EVIDENCE;
+assert(ability&&ability.status==='partial-official-evidence','Ability matrix must be flagged partial');
+assert.equal(ability.examples.length,4,'Expected four individually confirmed official instances');
+assert.equal(new Set(ability.examples.map(x=>x.heroId)).size,4);
+for(const item of ability.examples){
+  assert(data.heroes.some(h=>h.id===item.heroId),'Ability example references unknown hero: '+item.heroId);
+  assert(['Q','W','E','R'].includes(item.slot),'Unknown skill slot');
+  assert(item.source.startsWith('https://www.leagueoflegends.com/'),'Official example must have original Riot source');
+  assert(item.note.length>25,'Source explanation required');
+}
+const officialKeys=new Set(ability.examples.map(x=>x.heroId+':'+x.slot+':'+x.augment));
+for(const key of ['Lux:Q:Multishot','Blitzcrank:Q:Multishot','Garen:E:Quickstep','Kennen:R:Quickstep'])assert(officialKeys.has(key),'Missing Riot evidence: '+key);
+assert.deepEqual(Array.from(ability.fixedSlots.map(x=>x.slot)),['Q','W','E']);
+assert.equal(ability.cautions.filter(x=>x.heroId==='Yone').length,2,'Yone skill-haste caveats missing');
+assert(index.includes('<script src="ability-evidence.js"></script>'),'Missing ability evidence entrypoint');
+assert(index.indexOf('ability-evidence.js')<index.indexOf('<script src="app.js">'),'Ability evidence must load before app');
+assert(index.includes('data-page="abilities"'),'Ability page navigation missing');
+assert(app.includes('function abilitiesPage')&&app.includes('function renderHeroAbilityPanel')&&app.includes('function requestHeroAbilities'),'Missing on-demand Q/W/E/R skill browser');
+assert(app.includes('ddragon.leagueoflegends.com/cdn/'),'Champion skill descriptions must originate from Riot');
+assert(app.includes('没有可核实的所有英雄技能强化实际派发名单'),'Must expose unknown eligibility clearly');
+console.log('PASS: v1.5 source-backed ability augment examples, 173 champion entrypoints, no fabricated eligibility list.');
