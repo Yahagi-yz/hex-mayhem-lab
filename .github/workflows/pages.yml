@@ -29,6 +29,7 @@ jobs:
           node --check reference-data.js
           node --check verified-data.js
           node --check ability-evidence.js
+          node --check observation-store.js
           node --check build-evidence.js
           node --check app.js
           node --check scripts/sync-reference.cjs
@@ -51,7 +52,7 @@ jobs:
       - name: Package static files
         run: |
           mkdir -p _site
-          cp index.html app.js data.js roster.js reference-data.js verified-data.js build-evidence.js ability-evidence.js styles.css favicon.svg .nojekyll _site/
+          cp index.html *.js styles.css favicon.svg .nojekyll _site/
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:

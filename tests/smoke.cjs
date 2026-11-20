@@ -103,3 +103,9 @@ assert(index.indexOf('observation-store.js')<index.indexOf('<script src="app.js"
 assert(app.includes('renderAbilityObservationPanel')&&app.includes('saveAbilityObservation'),'Observation UI missing');
 assert(app.includes('state.observations=OBS.normalizeMany(state.observations)'),'Import normalization missing');
 console.log('PASS: v1.6 self-reported skill observations, provenance, backups and headliner isolation.');
+
+// Guard against a passing CI run that forgets to include new browser modules in the deployed artifact.
+const workflow = fs.readFileSync(path.join(root,'.github/workflows/pages.yml'),'utf8');
+assert(workflow.includes('node --check observation-store.js'),'New browser module must receive syntax checks');
+assert(workflow.includes('cp index.html *.js styles.css favicon.svg .nojekyll _site/'),'Pages must ship all root JavaScript modules');
+console.log('PASS: Pages packaging includes newly added browser modules.');
