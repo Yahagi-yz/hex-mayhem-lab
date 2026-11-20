@@ -57,3 +57,10 @@ node scripts/sync-reference.cjs
 - Riot 官方确认海克斯大乱斗禁用传统符文设置，旧资料字段只作为历史备注，不能作为开局符文配置建议。
 
 来源：Riot [26.12 Patch Notes](https://www.leagueoflegends.com/en-us/news/game-updates/league-of-legends-patch-26-12-notes/)、[26.13 Patch Notes](https://www.leagueoflegends.com/en-us/news/game-updates/league-of-legends-patch-26-13-notes/)、[开发文章](https://www.leagueoflegends.com/en-gb/news/dev/dev-augmentmaxxing-aram-mayhem/)、[模式规则](https://support.riotgames.com/en-us/league-of-legends/events/league-of-legends-aram-mayhem-game-mode)、[HexARAM 26.21](https://hexaram.lol/en/champions/)。
+
+## v1.6 · 个人对局技能强化观察
+- 任意英雄的 Q/W/E/R 技能面板可以保存带版本的个人对局记录：海克斯名称、技能槽位、补丁、证据等级、备注以及 HTTPS 截图/录像链接。
+- **证据等级必须分层**：「候选出现」不计入可指定技能的记录；「已选中」「已触发」才计入本地技能槽位统计，仍标为用户自述观察，不能升级为 Riot 官方证据。
+- 阻止把五杀乐队的四项技能演出选项当成常规技能强化；固定槽位的“面包系列”仅显示规则参考，不推测各英雄是否可抽到。
+- 完全保留旧版 `hex_mayhem_lab_v1` localStorage 键及 schema=1，新增字段 `observations`；所有观察记录会随网站「导出/导入 JSON」保存；不会自动上传仓库或任何服务器。
+- 验证模块 `observation-store.js` 独立做有效性与版本检查；旧版导入数据不会被清空。

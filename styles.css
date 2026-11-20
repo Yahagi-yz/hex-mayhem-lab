@@ -37,3 +37,18 @@
 .ability-roster-btn strong{font-size:13px}
 .ability-roster-btn small{font-size:11px;color:var(--muted,#abb5ca)}
 @media(max-width:680px){.ability-grid{grid-template-columns:1fr}.ability-roster-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.ability-slot-card{padding:13px}}
+
+/* v1.6: user-reported observation cards, not Riot-confirmed data */
+.obs-form{display:flex;flex-direction:column;gap:12px;margin:16px 0;padding:16px;border:1px solid rgba(110,160,208,.22);border-radius:14px;background:rgba(21,39,65,.26)}
+.obs-form input,.obs-form select,.obs-form textarea{width:100%;max-width:100%}
+.obs-form .primary-btn{align-self:flex-start}
+.obs-list{display:flex;flex-direction:column;gap:9px;margin-top:18px}
+.obs-entry{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:12px 14px;border:1px solid rgba(149,171,204,.23);border-radius:12px}
+.obs-entry p{font-size:12px;line-height:1.5;margin:5px 0}
+.obs-entry button{flex-shrink:0}
+.ability-personal{border-left:3px solid #dbaa68;background:rgba(220,169,96,.10);padding:9px 10px;border-radius:7px}
+.ability-personal strong{font-size:12px;color:#f1c68d}.ability-personal p{font-size:11px;margin:4px 0}
+.obs-coverage{display:flex;flex-wrap:wrap;gap:10px 15px;padding:16px;margin:14px 0;border:1px solid rgba(116,161,196,.30);border-radius:13px}
+.obs-coverage>strong{width:100%;font-size:14px}.obs-coverage span{padding:6px 10px;background:rgba(126,165,191,.15);font-size:12px;border-radius:8px}
+.obs-coverage .hint{width:100%;margin:0}
+@media(max-width:640px){.obs-entry{flex-direction:column}.obs-form{padding:12px}}

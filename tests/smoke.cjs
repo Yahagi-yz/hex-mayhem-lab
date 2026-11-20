@@ -87,3 +87,19 @@ assert(app.includes('function abilitiesPage')&&app.includes('function renderHero
 assert(app.includes('ddragon.leagueoflegends.com/cdn/'),'Champion skill descriptions must originate from Riot');
 assert(app.includes('没有可核实的所有英雄技能强化实际派发名单'),'Must expose unknown eligibility clearly');
 console.log('PASS: v1.5 source-backed ability augment examples, 173 champion entrypoints, no fabricated eligibility list.');
+
+vm.runInNewContext(fs.readFileSync(path.join(root,'observation-store.js'),'utf8'),context,{filename:'observation-store.js'});
+const OBS=context.window.HM_OBSERVATION_STORE;
+assert(OBS&&OBS.statuses,'Observation helper missing');
+const observed=OBS.normalize({id:'test-1',heroId:'Yone',slot:'Q',augment:'Multishot',patch:'26.23',status:'triggered'});
+assert(observed&&observed.provenance==='user-self-report','Local evidence provenance must not be official');
+assert.equal(OBS.normalize({heroId:'Yone',slot:'?',augment:'Multishot',patch:'26.23',status:'triggered'}),null,'Unknown skill cannot be triggered');
+assert.equal(OBS.normalize({heroId:'Yone',slot:'Q',augment:'重型（Q）',patch:'26.23',status:'selected'}),null,'Headliner must not be recorded as an ability augment');
+assert.equal(OBS.normalize({heroId:'Yone',slot:'Q',augment:'Multishot',patch:'26.23',status:'invalid'}),null,'Invalid status rejected');
+assert.equal(OBS.stats([observed]).skillPairs,1,'Skill coverage incorrect');
+assert.equal(OBS.stats([OBS.normalize({id:'offered',heroId:'Lux',slot:'?',augment:'Multishot',patch:'26.23',status:'offered'})]).skillPairs,0,'Offer is not a confirmed skill');
+assert(index.includes('<script src="observation-store.js"></script>'),'Missing observation loader');
+assert(index.indexOf('observation-store.js')<index.indexOf('<script src="app.js">'),'Observation module must load before app');
+assert(app.includes('renderAbilityObservationPanel')&&app.includes('saveAbilityObservation'),'Observation UI missing');
+assert(app.includes('state.observations=OBS.normalizeMany(state.observations)'),'Import normalization missing');
+console.log('PASS: v1.6 self-reported skill observations, provenance, backups and headliner isolation.');
